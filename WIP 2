@@ -1,0 +1,147 @@
+#include <stdio.h>
+#include <math.h>
+
+#define NUMELEM 20 //not a set integer
+
+int oddBaseInput();
+int evenBaseInput();
+int valuesInput();
+int convertCalc(int);
+
+int main()
+{
+    int oddBase;
+    int evenBase;
+    int count;
+    int values[NUMELEM] = {0};
+    int realSize;
+    
+    oddBase = oddBaseInput();
+    evenBase = evenBaseInput();
+    realSize = valuesInput(values);
+
+    return 0;
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: oddBaseInput
+ * *
+ * *  Function Return Type: int
+ * *
+ * *  Parameters (list data type, name, and comment one per line): N/A
+ * *
+ * *  Function Description:
+ * *  Function takes user input for the base type of all the odd integers.
+ * *
+ * ***************************************************************************/
+
+int oddBaseInput()
+{
+    int oddBase;
+    
+    printf("Enter base for odd numbers -> ");
+    scanf("%d", &oddBase);
+    
+    while(oddBase < 2 || oddBase > 9)
+    {
+        printf("\nError! Base must be in the range from 2 to 9.\n\n");
+        printf("Enter base for odd numbers -> ");
+        scanf("%d", &oddBase);
+    }
+    
+    return(oddBase);
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: evenBaseInput
+ * *
+ * *  Function Return Type: int
+ * *
+ * *  Parameters (list data type, name, and comment one per line): N/A
+ * *
+ * *  Function Description:
+ * *  Function takes user input for the base type of all the even integers.
+ * *
+ * ***************************************************************************/
+
+int evenBaseInput()
+{
+    int evenBase;
+    
+    printf("Enter base for even numbers -> ");
+    scanf("%d", &evenBase);
+    
+    while(evenBase < 2 || evenBase > 9)
+    {
+        printf("\nError! Base must be in the range from 2 to 9.\n\n");
+        printf("Enter base for even numbers -> ");
+        scanf("%d", &evenBase);
+    }
+    
+    return(evenBase);
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: valuesInput
+ * *
+ * *  Function Return Type: int
+ * *
+ * *  Parameters (list data type, name, and comment one per line): N/A
+ * *
+ * *  Function Description:
+ * *  Function takes user input for the each array element.
+ * *
+ * ***************************************************************************/
+
+int valuesInput(int values[])
+{
+    int i = 0;
+    
+    printf("Enter up to 20 integer values -> ");
+    
+    while(values[i - 1] != -1 && i < NUMELEM)
+    {
+        scanf("%d", &values[i]);
+        i++;
+    }
+    
+    return(i - 1);
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: convertCalc
+ * *
+ * *  Function Return Type: int
+ * *
+ * *  Parameters (list data type, name, and comment one per line): N/A
+ * *
+ * *  Function Description:
+ * *  Function takes user input for the each array element.
+ * *
+ * ***************************************************************************/
+ 
+ int convertCalc(int values[], int realSize, int baseVal)
+ {
+     int i;
+     int newNum;
+     
+     for(i = 0; i < realSize; ++i)
+     {
+         while(values[i] > 0)
+         {
+             newNum = values[i] % baseVal
+         }
+     }
+ }
