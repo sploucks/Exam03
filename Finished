@@ -1,0 +1,287 @@
+#include <stdio.h>
+#include <math.h>
+
+#define MAXELEM 20
+
+int oddBaseInput();
+int evenBaseInput();
+int valuesInput();
+int convertCalc(int, int);
+void displayBase(int);
+void oddCalc(int*, int, int);
+void evenCalc(int*, int, int);
+
+int main()
+{
+    int oddBase; //conversion base for odd elements
+    int evenBase; //conversion base for even elements
+    int realSize; //number of relevant elements in the given array
+    int values[MAXELEM] = {0}; //declares array of input values
+    
+    oddBase = oddBaseInput();
+    evenBase = evenBaseInput();
+    realSize = valuesInput(values);
+    oddCalc(values, realSize, oddBase);
+    evenCalc(values, realSize, evenBase);
+    
+    return 0;
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: oddBaseInput
+ * *
+ * *  Function Return Type: int
+ * *
+ * *  Parameters (list data type, name, and comment one per line): N/A
+ * *
+ * *  Function Description:
+ * *  Function takes user input for the base type of all the odd integers.
+ * *
+ * ***************************************************************************/
+
+int oddBaseInput()
+{
+    int oddBase; //conversion base for odd elements
+    
+    printf("Enter base for odd numbers -> ");
+    scanf("%d", &oddBase);
+    
+    while(oddBase < 2 || oddBase > 9)
+    {
+        printf("\nError! Base must be in the range from 2 to 9.\n\n");
+        printf("Enter base for odd numbers -> ");
+        scanf("%d", &oddBase);
+    }
+    
+    return(oddBase);
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: evenBaseInput
+ * *
+ * *  Function Return Type: int
+ * *
+ * *  Parameters (list data type, name, and comment one per line): N/A
+ * *
+ * *  Function Description:
+ * *  Function takes user input for the base type of all the even integers.
+ * *
+ * ***************************************************************************/
+
+int evenBaseInput()
+{
+    int evenBase; //conversion base for even elements
+    
+    printf("Enter base for even numbers -> ");
+    scanf("%d", &evenBase);
+    
+    while(evenBase < 2 || evenBase > 9)
+    {
+        printf("\nError! Base must be in the range from 2 to 9.\n\n");
+        printf("Enter base for even numbers -> ");
+        scanf("%d", &evenBase);
+    }
+    
+    return(evenBase);
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: valuesInput
+ * *
+ * *  Function Return Type: int
+ * *
+ * *  Parameters (list data type, name, and comment one per line):
+ * *  1.int values[] - array with twenty or less numbers
+ * *
+ * *  Function Description:
+ * *  Function takes user input for the each array element.
+ * *
+ * ***************************************************************************/
+
+int valuesInput(int values[])
+{
+    int i = 0; //initliazes counter variable to run through array
+    
+    printf("Enter up to 20 integer values -> ");
+    
+    while(values[i - 1] != -1 && i < MAXELEM)
+    {
+        scanf("%d", &values[i]);
+        i++;
+    }
+    
+    return(i - 1);
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: convertCalc
+ * *
+ * *  Function Return Type: int
+ * *
+ * *  Parameters (list data type, name, and comment one per line):
+ * *  1.int currentVal - takes the current value of the element in the values array
+ * *  2.int baseVal - the value indicating the base conversion
+ * *
+ * *  Function Description:
+ * *  For each array element passed into this function, its value is converted into the desired base.
+ * *
+ * ***************************************************************************/
+ 
+int convertCalc(int currentVal, int baseVal)
+{
+    int newNum = 0; //stores new converted number
+    int digitCt = 0; //the placement of the digit
+
+    while(currentVal > 0)
+    {
+        newNum += currentVal % baseVal * (pow(10, digitCt));
+        currentVal -= currentVal % baseVal;
+        currentVal /= baseVal;
+        ++digitCt;
+    }
+    
+    return(newNum);
+}
+ 
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: displayBase
+ * *
+ * *  Function Return Type: void
+ * *
+ * *  Parameters (list data type, name, and comment one per line):
+ * *  1.int baseVal - the value indicating the base conversion
+ * *
+ * *  Function Description:
+ * *  Displays associated base values to the screen.
+ * *
+ * ***************************************************************************/
+
+void displayBase(int baseVal)
+{
+    switch(baseVal)
+    {
+        case 2:
+            printf("\nBinary values:");
+            break;
+        case 3:
+            printf("\nTernary values:");
+            break;
+        case 4:
+            printf("\nQuaternary values:");
+            break;
+        case 5:
+            printf("\nQuinary values:");
+            break;
+        case 6:
+            printf("\nSenary values:");
+            break;
+        case 7:
+            printf("\nSeptenary values:");
+            break;
+        case 8:
+            printf("\nOctal values:");
+            break;
+        case 9:
+            printf("\nNonary values:");
+            break;
+    }
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: oddCalc
+ * *
+ * *  Function Return Type: void
+ * *
+ * *  Parameters (list data type, name, and comment one per line):
+ * *  1.int values[] - array with twenty or less numbers
+ * *  2.int realSize - the number of relevant elements in the array
+ * *  3.int baseVal - the value indicating the base conversion
+ * *
+ * *  Function Description:
+ * *  Displays and calculates all converted odd numbers.
+ * *
+ * ***************************************************************************/
+
+void oddCalc(int values[], int realSize, int baseVal)
+{
+    int count; //initializes a count variable to run through the array
+    int displayCountO = 0; //variable that tells whether this is the first time the output function has been ran
+    int currentVal; //stores current variable of array element
+    
+    displayBase(baseVal);
+    
+    for (count = 0; count < realSize; count++)
+    {
+        if(values[count] % 2 == 1)
+        {
+            currentVal = convertCalc(values[count], baseVal);
+            printf(" %i", currentVal);
+            displayCountO++;
+        }
+    }
+    
+    if(displayCountO == 0)
+    {
+        printf(" None");
+    }
+}
+
+/***************************************************************************
+ * *
+ * *  Function Information
+ * *
+ * *  Name of Function: evenCalc
+ * *
+ * *  Function Return Type: void
+ * *
+ * *  Parameters (list data type, name, and comment one per line):
+ * *  1.int values[] - array with twenty or less numbers
+ * *  2.int realSize - the number of relevant elements in the array
+ * *  3.int baseVal - the value indicating the base conversion
+ * *
+ * *  Function Description:
+ * *  Calculates and displays all converted even numbers.
+ * *
+ * ***************************************************************************/
+
+void evenCalc(int values[], int realSize, int baseVal)
+{
+    int count; //initializes a count variable to run through the array
+    int displayCountE = 0; //variable that tells whether this is the first time the output function has been ran
+    int currentVal; //stores current variable of array element
+    
+    displayBase(baseVal);
+    
+    for (count = 0; count < realSize; count++)
+    {
+        if(values[count] % 2 == 0)
+        {
+            currentVal = convertCalc(values[count], baseVal);
+            printf(" %i", currentVal);
+            displayCountE++;
+        }
+    }
+    
+    if(displayCountE == 0)
+    {
+        printf(" None\n");
+    }
+}
